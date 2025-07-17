@@ -130,6 +130,12 @@ Before you start, ensure your VM has the following installed:
     ```bash
     sudo apt install -y nginx
     ```
+*   **Certbot**: For obtaining and renewing SSL certificates from Let's Encrypt.
+    ```bash
+    sudo snap install core; sudo snap refresh core
+    sudo snap install --classic certbot
+    sudo ln -s /snap/bin/certbot /usr/bin/certbot
+    ```
 
 #### Deployment Steps
 
@@ -172,19 +178,19 @@ Before you start, ensure your VM has the following installed:
     ```
     Follow the instructions provided by `pm2 startup` to set up the systemd script.
 
-7.  **Configure Nginx as a Reverse Proxy:**
-    This will allow Nginx to serve your Next.js app on standard HTTP/HTTPS ports (80/443).
+7.  **Configure Nginx as a Reverse Proxy (Initial HTTP Setup):**
+    This will allow Nginx to serve your Next.js app on standard HTTP port 80. We'll add HTTPS later.
 
     Create a new Nginx configuration file for your app:
     ```bash
     sudo nano /etc/nginx/sites-available/habit-tracker
     ```
-    Paste the following configuration into the file. Replace `your_domain_or_ip` with your VM's domain name or IP address.
+    Paste the following configuration into the file:
 
     ```nginx
     server {
         listen 80;
-        server_name your_domain_or_ip;
+        server_name habits.chalasani.de;
 
         location / {
             proxy_pass http://localhost:3000; # Next.js app runs on port 3000 by default
@@ -214,18 +220,37 @@ Before you start, ensure your VM has the following installed:
     ```
 
 8.  **Adjust Firewall (if applicable):**
-    If you have a firewall (like UFW on Ubuntu), ensure ports 80 (HTTP) and 443 (HTTPS, if you add SSL later) are open.
+    If you have a firewall (like UFW on Ubuntu), ensure ports 80 (HTTP) and 443 (HTTPS) are open.
     ```bash
-    sudo ufw allow 'Nginx HTTP'
+    sudo ufw allow 'Nginx Full' # This opens both 80 and 443
     sudo ufw enable # if firewall is not already enabled
     ```
 
+9.  **Obtain and Install SSL Certificates with Certbot:**
+    Now that Nginx is serving your site on HTTP, you can use Certbot to automatically obtain and configure SSL certificates.
+
+    ```bash
+    sudo certbot --nginx -d habits.chalasani.de
+    ```
+    Follow the prompts:
+    *   Enter your email address.
+    *   Agree to the terms of service.
+    *   Choose whether to redirect HTTP traffic to HTTPS (recommended: select option 2 for redirect).
+
+    Certbot will automatically modify your Nginx configuration to include the SSL certificates and set up HTTPS.
+
+    You can test the automatic renewal process for Certbot:
+    ```bash
+    sudo certbot renew --dry-run
+    ```
+    If this runs without errors, your certificates should renew automatically.
+
 #### Accessing Your Deployed App
 
-Your Habit Tracker app should now be accessible via your VM's domain name or IP address.
+Your Habit Tracker app should now be accessible securely via `https://habits.chalasani.de`.
 
-*   **For Doro**: `http://your_domain_or_ip/doro`
-*   **For Ashant**: `http://your_domain_or_ip/ashant`
-*   The main page with links: `http://your_domain_or_ip/`
+*   **For Doro**: `https://habits.chalasani.de/doro`
+*   **For Ashant**: `https://habits.chalasani.de/ashant`
+*   The main page with links: `https://habits.chalasani.de/`
 
-Remember to replace `your_domain_or_ip` with your actual VM's public IP address or domain name.
+All HTTP traffic will automatically be redirected to HTTPS if you chose that option during Certbot setup.
