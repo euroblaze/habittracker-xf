@@ -27,41 +27,41 @@ Make sure you have Node.js (v18.x or higher) and npm (or yarn/pnpm) installed on
 1.  **Clone the repository (or download the code):**
 
     If you're using Git, clone the project:
-    \`\`\`bash
+    ```bash
     git clone <repository-url>
     cd habit-tracker
-    \`\`\`
+    ```
 
     If you downloaded the code, extract it and navigate into the project directory.
 
 2.  **Install dependencies:**
 
     Using npm:
-    \`\`\`bash
+    ```bash
     npm install
-    \`\`\`
+    ```
     Or using yarn:
-    \`\`\`bash
+    ```bash
     yarn install
-    \`\`\`
+    ```
     Or using pnpm:
-    \`\`\`bash
+    ```bash
     pnpm install
-    \`\`\`
+    ```
 
 3.  **Run the development server:**
 
-    \`\`\`bash
+    ```bash
     npm run dev
-    \`\`\`
+    ```
     Or using yarn:
-    \`\`\`bash
+    ```bash
     yarn dev
-    \`\`\`
+    ```
     Or using pnpm:
-    \`\`\`bash
+    ```bash
     pnpm dev
-    \`\`\`
+    ```
 
     The application will start on `http://localhost:3000`.
 
@@ -113,75 +113,75 @@ If you prefer to deploy the application on your own Virtual Machine, follow thes
 Before you start, ensure your VM has the following installed:
 
 *   **Node.js and npm**: Version 18.x or higher.
-    \`\`\`bash
+    ```bash
     # Example for Ubuntu/Debian
     sudo apt update
     sudo apt install -y nodejs npm
-    \`\`\`
+    ```
 *   **Git**: For cloning the repository.
-    \`\`\`bash
+    ```bash
     sudo apt install -y git
-    \`\`\`
+    ```
 *   **PM2**: A production process manager for Node.js applications.
-    \`\`\`bash
+    ```bash
     sudo npm install -g pm2
-    \`\`\`
+    ```
 *   **Nginx**: A high-performance web server and reverse proxy.
-    \`\`\`bash
+    ```bash
     sudo apt install -y nginx
-    \`\`\`
+    ```
 
 #### Deployment Steps
 
 1.  **SSH into your VM:**
-    \`\`\`bash
+    ```bash
     ssh ashant@your_vm_ip_address
-    \`\`\`
+    ```
 
 2.  **Navigate to your home directory:**
-    \`\`\`bash
+    ```bash
     cd /home/ashant/
-    \`\`\`
+    ```
 
 3.  **Clone your repository:**
     Replace `<your-repository-url>` with the actual URL of your Git repository.
-    \`\`\`bash
+    ```bash
     git clone <your-repository-url> habit-tracker
     cd habit-tracker
-    \`\`\`
+    ```
 
 4.  **Install project dependencies:**
-    \`\`\`bash
+    ```bash
     npm install
-    \`\`\`
+    ```
 
 5.  **Build the Next.js application for production:**
-    \`\`\`bash
+    ```bash
     npm run build
-    \`\`\`
+    ```
 
 6.  **Start the application with PM2:**
     PM2 will keep your application running in the background and restart it if it crashes.
-    \`\`\`bash
+    ```bash
     pm2 start npm --name "habit-tracker-app" -- start
-    \`\`\`
+    ```
     To ensure PM2 restarts your app on server reboot:
-    \`\`\`bash
+    ```bash
     pm2 save
     pm2 startup
-    \`\`\`
+    ```
     Follow the instructions provided by `pm2 startup` to set up the systemd script.
 
 7.  **Configure Nginx as a Reverse Proxy:**
     This will allow Nginx to serve your Next.js app on standard HTTP/HTTPS ports (80/443).
 
     Create a new Nginx configuration file for your app:
-    \`\`\`bash
+    ```bash
     sudo nano /etc/nginx/sites-available/habit-tracker
-    \`\`\`
+    ```
     Paste the following configuration into the file. Replace `your_domain_or_ip` with your VM's domain name or IP address.
 
-    \`\`\`nginx
+    ```nginx
     server {
         listen 80;
         server_name your_domain_or_ip;
@@ -195,30 +195,30 @@ Before you start, ensure your VM has the following installed:
             proxy_cache_bypass $http_upgrade;
         }
     }
-    \`\`\`
+    ```
     Save and exit the file (Ctrl+X, Y, Enter in nano).
 
     Create a symbolic link to enable the site:
-    \`\`\`bash
+    ```bash
     sudo ln -s /etc/nginx/sites-available/habit-tracker /etc/nginx/sites-enabled/
-    \`\`\`
+    ```
 
     Test the Nginx configuration for syntax errors:
-    \`\`\`bash
+    ```bash
     sudo nginx -t
-    \`\`\`
+    ```
 
     If the test is successful, restart Nginx to apply the changes:
-    \`\`\`bash
+    ```bash
     sudo systemctl restart nginx
-    \`\`\`
+    ```
 
 8.  **Adjust Firewall (if applicable):**
     If you have a firewall (like UFW on Ubuntu), ensure ports 80 (HTTP) and 443 (HTTPS, if you add SSL later) are open.
-    \`\`\`bash
+    ```bash
     sudo ufw allow 'Nginx HTTP'
     sudo ufw enable # if firewall is not already enabled
-    \`\`\`
+    ```
 
 #### Accessing Your Deployed App
 
