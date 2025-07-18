@@ -1,13 +1,13 @@
 # Habit Tracker App
 
-A simple, personalized habit tracking web application for two partners, Doro and Ashant, with central data storage and individual views.
+A simple, personalized habit tracking web application for two friends, with central data storage and individual views.
 
 ## Features
 
-*   **Personalized Views**: Each partner accesses their own habit tracker via a unique URL (e.g., `/doro`, `/ashant`).
+*   **Personalized Views**: Each partner accesses their own habit tracker via a unique URL (e.g., `/friend1`, `/friend2`).
 *   **Centralized Data**: All habit entries are stored in a shared JSON file, allowing for combined totals.
 *   **Private Checkboxes**: Each partner can only mark their own habits.
-*   **Shared Totals**: The bottom of the table displays combined totals for each habit for both Doro and Ashant.
+*   **Shared Totals**: The bottom of the table displays combined totals for each habit for both friend1 and friend2.
 *   **Auto-Save**: All changes are automatically saved to the backend.
 *   **Month Navigation**: Easily slide between previous and future months (up to 12 months in each direction).
 *   **Customizable Habits**: Add, activate, deactivate, and delete custom habits via a settings menu.
@@ -70,8 +70,8 @@ Make sure you have Node.js (v18.x or higher) and npm (or yarn/pnpm) installed on
 Once the app is running, you can access it in your web browser:
 
 1.  **Accessing Your Tracker:**
-    *   For **Doro**: Go to `http://localhost:3000/doro`
-    *   For **Ashant**: Go to `http://localhost:3000/ashant`
+    *   For **friend1**: Go to `http://localhost:3000/friend1`
+    *   For **friend2**: Go to `http://localhost:3000/friend2`
     *   The root URL `http://localhost:3000` provides links to each partner's tracker.
 
 2.  **Tracking Habits:**
@@ -89,7 +89,7 @@ Once the app is running, you can access it in your web browser:
     *   Click "Done" to close the settings.
 
 5.  **Viewing Totals:**
-    *   At the bottom of the habit grid, you'll find a "Total" row. This row displays the total number of times each habit has been completed by **both Doro and Ashant** for the currently viewed month.
+    *   At the bottom of the habit grid, you'll find a "Total" row. This row displays the total number of times each habit has been completed by **both friend1 and friend2** for the currently viewed month.
 
 6.  **Data Persistence:**
     *   All your habit data and settings are stored in a JSON file (`data/habits.json`) within the project directory. This means your progress will be saved even if you close and reopen the application.
@@ -102,7 +102,7 @@ This application is built with Next.js and can be easily deployed to Vercel.
 2.  **Connect Your Git Repository**: Import your project from GitHub, GitLab, or Bitbucket.
 3.  **Deploy**: Vercel will automatically detect it's a Next.js project and deploy it.
 
-Once deployed, you can access your app at the Vercel URL, and then navigate to `/doro` or `/ashant`.
+Once deployed, you can access your app at the Vercel URL, and then navigate to `/friend1` or `/friend2`.
 
 ### Deployment on a VM (e.g., Ubuntu/Debian)
 
@@ -141,12 +141,12 @@ Before you start, ensure your VM has the following installed:
 
 1.  **SSH into your VM:**
     ```bash
-    ssh ashant@your_vm_ip_address
+    ssh friend2@your_vm_ip_address
     ```
 
 2.  **Navigate to your home directory:**
     ```bash
-    cd /home/ashant/
+    cd /home/friend2/
     ```
 
 3.  **Clone your repository:**
@@ -249,8 +249,8 @@ Before you start, ensure your VM has the following installed:
 
 Your Habit Tracker app should now be accessible securely via `https://habits.chalasani.de`.
 
-*   **For Doro**: `https://habits.chalasani.de/doro`
-*   **For Ashant**: `https://habits.chalasani.de/ashant`
+*   **For friend1**: `https://habits.chalasani.de/friend1`
+*   **For friend2**: `https://habits.chalasani.de/friend2`
 *   The main page with links: `https://habits.chalasani.de/`
 
 All HTTP traffic will automatically be redirected to HTTPS if you chose that option during Certbot setup.
