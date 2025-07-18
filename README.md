@@ -96,14 +96,6 @@ Once the app is running, you can access it in your web browser:
 
 ## Deployment
 
-This application is built with Next.js and can be easily deployed to Vercel.
-
-1.  **Create a Vercel Account**: If you don't have one, sign up at [vercel.com](https://vercel.com/).
-2.  **Connect Your Git Repository**: Import your project from GitHub, GitLab, or Bitbucket.
-3.  **Deploy**: Vercel will automatically detect it's a Next.js project and deploy it.
-
-Once deployed, you can access your app at the Vercel URL, and then navigate to `/friend1` or `/friend2`.
-
 ### Deployment on a VM (e.g., Ubuntu/Debian)
 
 If you prefer to deploy the application on your own Virtual Machine, follow these steps. This guide assumes you have SSH access to your VM and a basic Linux environment.
